@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace AssistentBot.API.Controllers;
+namespace AssistantBot.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]

@@ -1,4 +1,4 @@
-namespace AssistentBot.API;
+namespace AssistantBot.API;
 
 public class Program
 {
