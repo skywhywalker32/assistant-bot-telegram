@@ -1,0 +1,29 @@
+﻿## .NET Core / Visual Studio / Rider
+bin/
+obj/
+out/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.userosscache
+*.sln.docstates
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+.vs/
+
+## Database & Secrets
+*.db
+*.db-shm
+*.db-wal
+appsettings.Development.json
+secrets.json
+
+## OS related
+.DS_Store
+Thumbs.db
+
+## Node.js (если вдруг появится фронтенд)
+node_modules/
+npm-debug.log*

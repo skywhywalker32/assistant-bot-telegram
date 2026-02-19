@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssistentBot.API", "src\AssistentBot.API\AssistentBot.API.csproj", "{5CE860B9-4483-4148-B341-594231C560DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssistentBot.Infrastructure", "src\AssistentBot.Infrastructure\AssistentBot.Infrastructure.csproj", "{AB3D46C2-2DB7-48B1-88A6-4C8CE83DD664}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssistentBot.Application", "src\AssistentBot.Application\AssistentBot.Application.csproj", "{BD43FE4A-5F84-43BE-AE21-C0C7964F6833}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssistentBot.Domain", "src\AssistentBot.Domain\AssistentBot.Domain.csproj", "{48214EEF-78DA-4B83-9AE0-590DED8578BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{466F36F9-DD69-45A3-B54D-3CB067D0CC72}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CE860B9-4483-4148-B341-594231C560DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CE860B9-4483-4148-B341-594231C560DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CE860B9-4483-4148-B341-594231C560DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CE860B9-4483-4148-B341-594231C560DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB3D46C2-2DB7-48B1-88A6-4C8CE83DD664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB3D46C2-2DB7-48B1-88A6-4C8CE83DD664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB3D46C2-2DB7-48B1-88A6-4C8CE83DD664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB3D46C2-2DB7-48B1-88A6-4C8CE83DD664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD43FE4A-5F84-43BE-AE21-C0C7964F6833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD43FE4A-5F84-43BE-AE21-C0C7964F6833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD43FE4A-5F84-43BE-AE21-C0C7964F6833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD43FE4A-5F84-43BE-AE21-C0C7964F6833}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48214EEF-78DA-4B83-9AE0-590DED8578BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48214EEF-78DA-4B83-9AE0-590DED8578BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48214EEF-78DA-4B83-9AE0-590DED8578BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48214EEF-78DA-4B83-9AE0-590DED8578BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
