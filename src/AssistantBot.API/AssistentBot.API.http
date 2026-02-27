@@ -1,6 +1,7 @@
-@AssistentBot.API_HostAddress = http://localhost:5162
+@AssistentBot_HostAddress = https://msxp9thw-5162.euw.devtunnels.ms
 
-GET {{AssistentBot.API_HostAddress}}/weatherforecast/
+GET {{AssistentBot_HostAddress}}/api/bot
+X-Tunnel-Skip-Anti-Spam-Page: true
 Accept: application/json
 
 ###
