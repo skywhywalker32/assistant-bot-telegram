@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace AssistantBot.API.Controllers;
 
@@ -19,11 +21,6 @@ public class BotController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Update update)
     {
-        if (update.Message is { Text: { } msgText })
-        {
-            Console.WriteLine(msgText);
-        }
-            
         return Ok();
     }
 }

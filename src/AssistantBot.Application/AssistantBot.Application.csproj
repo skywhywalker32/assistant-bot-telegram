@@ -10,4 +10,8 @@
       <ProjectReference Include="..\AssistantBot.Domain\AssistantBot.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Common\" />
+    </ItemGroup>
+
 </Project>
