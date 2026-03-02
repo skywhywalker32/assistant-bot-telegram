@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <Folder Include="Common\" />
+      <Folder Include="Persistence\EntityFramework\" />
     </ItemGroup>
 
     <ItemGroup>
