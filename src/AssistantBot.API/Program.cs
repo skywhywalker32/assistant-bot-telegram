@@ -1,3 +1,5 @@
+using AssistantBot.Application;
+using AssistantBot.Infrastructure;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 
@@ -12,15 +14,9 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
 
-        builder.Services.AddSingleton<ITelegramBotClient>(provider =>
-        {
-            var token =
-                builder.Configuration.GetSection("BotToken").Value
-                ?? throw new Exception("No token");
-
-            return new TelegramBotClient(token);
-        });
-
+        builder.Services.AddInfrastructure(builder.Configuration);
+        builder.Services.AddApplication();
+        
         var app = builder.Build();
 
         await using (var scope = app.Services.CreateAsyncScope())
