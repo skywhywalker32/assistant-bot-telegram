@@ -1,6 +1,6 @@
 ﻿namespace AssistantBot.Domain.Exceptions;
 
-public class UserExceptions
+public class UserException
 {
     
 }
