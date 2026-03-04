@@ -1,5 +1,6 @@
 ﻿using AssistantBot.Application.Abstractions.Persistence;
 using AssistantBot.Infrastructure.Persistence.EntityFramework.Contexts;
+using AssistantBot.Infrastructure.Persistence.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +26,10 @@ public static class DependencyInjection
             optionsBuilder.UseNpgsql(configuration.GetConnectionString("Default"));
         });
 
+        services.AddScoped<ILocationsRepository, LocationsRepository>();
+        services.AddScoped<INotesRepository, NotesRepository>();
+        services.AddScoped<IUsersRepository, UsersRepository>();
+        
         services.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<ApplicationDbContext>());
         
         return services;

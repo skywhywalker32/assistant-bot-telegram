@@ -1,16 +1,26 @@
 ﻿using AssistantBot.Application.Abstractions.Persistence;
 using AssistantBot.Domain.Entities;
+using AssistantBot.Infrastructure.Persistence.EntityFramework.Contexts;
 
 namespace AssistantBot.Infrastructure.Persistence.EntityFramework.Repositories;
 
 public class NotesRepository : INotesRepository
 {
-    public async Task<List<Note>> GetAllFromUserByIdAsync(int id)
+    private readonly ApplicationDbContext _dbContext;
+    
+    public NotesRepository(ApplicationDbContext dbContext)
     {
-        throw new NotImplementedException();
+        _dbContext = dbContext;
+    }
+    
+    public Task UpdateAsync(Note note)
+    {
+        _dbContext.Notes.Update(note);
+        
+        return Task.CompletedTask;
     }
 
-    public async Task<Note> GetByIdAsync(int id)
+    public async Task DeleteByIdAsync(int id)
     {
         throw new NotImplementedException();
     }

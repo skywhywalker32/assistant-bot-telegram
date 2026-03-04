@@ -4,6 +4,6 @@ namespace AssistantBot.Application.Abstractions.Persistence;
 
 public interface INotesRepository
 {
-    Task<List<Note>> GetAllFromUserByIdAsync(int id);
-    Task<Note> GetByIdAsync(int id);
+    Task UpdateAsync(Note note);
+    Task DeleteByIdAsync(int id);
 }

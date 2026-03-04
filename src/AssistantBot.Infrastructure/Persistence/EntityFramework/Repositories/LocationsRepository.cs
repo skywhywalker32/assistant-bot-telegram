@@ -1,17 +1,22 @@
 ﻿using AssistantBot.Application.Abstractions.Persistence;
 using AssistantBot.Domain.Entities;
+using AssistantBot.Infrastructure.Persistence.EntityFramework.Contexts;
 
 namespace AssistantBot.Infrastructure.Persistence.EntityFramework.Repositories;
 
 public class LocationsRepository : ILocationsRepository
 {
-    public async Task<Location> GetByIdAsync(int id)
+    private readonly ApplicationDbContext _dbContext;
+
+    public LocationsRepository(ApplicationDbContext dbContext)
     {
-        throw new NotImplementedException();
+        _dbContext = dbContext;
     }
 
-    public async Task UpdateByIdAsync(int id, Location location)
+    public Task UpdateAsync(Location location)
     {
-        throw new NotImplementedException();
+        _dbContext.Locations.Update(location);
+        
+        return Task.CompletedTask;
     }
 }
