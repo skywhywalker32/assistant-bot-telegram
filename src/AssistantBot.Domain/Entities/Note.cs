@@ -19,7 +19,6 @@ public class Note
 
     public static Note Create(string title, string text, int userId)
     {
-        // проверки
         if (!EnsureValidTitle(title))
         {
             throw NoteException.InvalidTitleLength(TitleCharsMax, title.Length);

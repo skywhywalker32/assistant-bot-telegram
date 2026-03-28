@@ -4,12 +4,13 @@ public static class BotButtons
 {
     public static class MainMenu
     {
-        public const string Account = "👤 Аккаунт";
+        // public const string Account = "👤 Аккаунт";
         public const string AIChat = "🤖 ИИ чат";
         public const string Weather = "🌤 Погода";
         public const string Note = "📝 Заметки";
     }
     
+    // система аккаунтов не реализуется
     public static class AccountMenu
     {
         public const string Login = "Войти";
