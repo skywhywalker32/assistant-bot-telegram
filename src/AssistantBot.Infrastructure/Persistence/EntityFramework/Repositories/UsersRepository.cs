@@ -1,7 +1,8 @@
 ﻿using AssistantBot.Application.Abstractions.Persistence;
-using AssistantBot.Domain.Entities;
 using AssistantBot.Infrastructure.Persistence.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Telegram.Bot.Types;
+using User = AssistantBot.Domain.Entities.User;
 
 namespace AssistantBot.Infrastructure.Persistence.EntityFramework.Repositories;
 
@@ -14,13 +15,22 @@ public class UsersRepository : IUsersRepository
         _dbContext = dbContext;
     }
     
-    public async Task AddAsync(User user)
+    public Task AddAsync(User user)
     {
-        await _dbContext.Users.AddAsync(user);
+        _dbContext.Users.Add(user);
+        
+        return Task.CompletedTask;
     }
 
-    public async Task<User?> GetByIdAsync(int id)
+    public Task UpdateAsync(User user)
     {
+        _dbContext.Users.Update(user);
+        
+        return Task.CompletedTask;
+    } 
+        
+    public async Task<User?> GetByIdAsync(int id)
+    {   
         return await _dbContext.Users
             .Include(u => u.Location)
             .FirstOrDefaultAsync(u => u.Id == id);
