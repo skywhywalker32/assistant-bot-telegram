@@ -2,5 +2,6 @@
 
 public interface ITelegramBotService
 {
-    
+    Task HandleMessage();
+    Task HandleCallbackQuery();
 }
