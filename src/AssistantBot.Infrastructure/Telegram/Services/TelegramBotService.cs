@@ -1,6 +1,8 @@
-﻿namespace AssistantBot.Infrastructure.Telegram.Services;
+﻿using AssistantBot.Application.Abstractions.ExternalServices;
 
-public class TelegramBotService
+namespace AssistantBot.Infrastructure.Telegram.Services;
+
+public class TelegramBotService : ITelegramBotService
 {
     
 }
