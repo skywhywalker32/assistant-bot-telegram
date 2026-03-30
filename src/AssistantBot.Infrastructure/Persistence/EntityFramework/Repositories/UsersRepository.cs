@@ -15,11 +15,9 @@ public class UsersRepository : IUsersRepository
         _dbContext = dbContext;
     }
     
-    public Task AddAsync(User user)
+    public void Add(User user)
     {
         _dbContext.Users.Add(user);
-        
-        return Task.CompletedTask;
     }
         
     public async Task<User?> GetByIdAsync(int id)

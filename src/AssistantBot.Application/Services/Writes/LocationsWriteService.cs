@@ -41,7 +41,7 @@ public class LocationsWriteService : ILocationsWriteService
             {
                 var newLocationEntity = Location.Create(upsertLocationDto.Longitude, upsertLocationDto.Latitude, user.Id);
 
-                await _locationsRepository.AddAsync(newLocationEntity);
+                _locationsRepository.Add(newLocationEntity);
             }
             else
             {

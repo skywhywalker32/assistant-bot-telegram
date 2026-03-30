@@ -13,10 +13,8 @@ public class LocationsRepository : ILocationsRepository
         _dbContext = dbContext;
     }
 
-    public Task AddAsync(Location location)
+    public void Add(Location location)
     {
         _dbContext.Locations.Add(location);
-
-        return Task.CompletedTask;
     }
 }

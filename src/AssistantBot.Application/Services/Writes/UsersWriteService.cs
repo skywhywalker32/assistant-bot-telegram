@@ -32,7 +32,7 @@ public class UsersWriteService : IUsersWriteService
             
             _logger.LogInformation("Новый пользователь с ником {username} зарегестрирован", upsertUserDto.Username);
             
-            await _usersRepository.AddAsync(newUserEntity);
+            _usersRepository.Add(newUserEntity);
         }
         else
         {

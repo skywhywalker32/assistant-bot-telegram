@@ -28,11 +28,9 @@ public class NotesRepository : INotesRepository
             .FirstOrDefaultAsync(n => n.Id == id);
     }
     
-    public Task AddAsync(Note note)
+    public void Add(Note note)
     {
         _dbContext.Notes.Add(note);
-
-        return Task.CompletedTask;
     }
 
     public async Task<bool> DeleteByIdAsync(int id)

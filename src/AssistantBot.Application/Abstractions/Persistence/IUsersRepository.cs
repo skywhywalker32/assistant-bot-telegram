@@ -4,7 +4,7 @@ namespace AssistantBot.Application.Abstractions.Persistence;
 
 public interface IUsersRepository
 {
-    Task AddAsync(User user);
+    void Add(User user);
     
     Task<User?> GetByIdAsync(int id);
     

@@ -39,7 +39,7 @@ public class NotesWriteService : INotesWriteService
         {
             var newNoteEntity = Note.Create(addNoteDto.Title, addNoteDto.Text, user.Id);
             
-            await _notesRepository.AddAsync(newNoteEntity);
+            _notesRepository.Add(newNoteEntity);
         }
         catch (NoteException e)
         {
