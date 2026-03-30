@@ -32,7 +32,7 @@ public class BotUpdateTypeRouter : IBotUpdateTypeRouter
                 if (msg.Location is { } location) // Локация
                 {
                     // 1. Маппинг данных к Dto
-                    var locationDto = new LocationDto()
+                    var locationDto = new UpsertLocationDto()
                     {
                         Latitude = location.Latitude.ToString("D2"),
                         Longitude = location.Longitude.ToString("D2"),
@@ -40,7 +40,7 @@ public class BotUpdateTypeRouter : IBotUpdateTypeRouter
                     };
                     
                     // 2. Вызов соответствующего метода у сервиса из application
-                    await _locationsWriteService.AddLocationAsync(locationDto);
+                    await _locationsWriteService.UpsertLocationAsync(locationDto);
 
                     // 3. Вызов метода из сервиса бота для отображения ответа
                 }

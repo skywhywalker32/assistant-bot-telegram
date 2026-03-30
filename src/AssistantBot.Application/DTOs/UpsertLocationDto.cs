@@ -1,6 +1,6 @@
 ﻿namespace AssistantBot.Application.DTOs;
 
-public class LocationDto
+public class UpsertLocationDto
 {
     public string Latitude { get; init; } = string.Empty;
     public string Longitude { get; init; } = string.Empty;

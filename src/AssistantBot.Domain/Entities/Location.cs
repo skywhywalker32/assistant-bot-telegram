@@ -16,15 +16,7 @@ public class Location
 
     public static Location Create(string longitude, string latitude, int userId)
     {
-        if (!EnsureValidLongitude(longitude))
-        {
-            throw LocationException.InvalidLongitude(longitude);
-        }
-        
-        if (!EnsureValidLatitude(latitude))
-        {
-            throw LocationException.InvalidLatitude(latitude);
-        }
+        EnsureValidCoords(longitude, latitude);
         
         return new Location
         {   
@@ -34,10 +26,31 @@ public class Location
         };
     }
 
+    private static void EnsureValidCoords(string longitude, string latitude)
+    {
+        if (!EnsureValidLongitude(longitude))
+        {
+            throw LocationException.InvalidLongitude(longitude);
+        }
+        
+        if (!EnsureValidLatitude(latitude))
+        {
+            throw LocationException.InvalidLatitude(latitude);
+        }
+    }
+
     private static bool EnsureValidLatitude(string latitute) =>
         !string.IsNullOrWhiteSpace(latitute) && double.TryParse(latitute, out _);
 
     private static bool EnsureValidLongitude(string longitude) =>
         !string.IsNullOrWhiteSpace(longitude) && double.TryParse(longitude, out _);
+    
+    public void UpdateCoords(string longitude, string latitude)
+    {
+        EnsureValidCoords(longitude, latitude);
+
+        Longitude = longitude;
+        Latitude = latitude;
+    }
     
 }

@@ -1,6 +1,9 @@
-﻿using AssistantBot.Application.Abstractions.Persistence;
+﻿using AssistantBot.Application.Abstractions.ExternalServices;
+using AssistantBot.Application.Abstractions.Persistence;
 using AssistantBot.Infrastructure.Persistence.EntityFramework.Contexts;
 using AssistantBot.Infrastructure.Persistence.EntityFramework.Repositories;
+using AssistantBot.Infrastructure.Telegram;
+using AssistantBot.Infrastructure.Telegram.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,8 +32,10 @@ public static class DependencyInjection
         services.AddScoped<ILocationsRepository, LocationsRepository>();
         services.AddScoped<INotesRepository, NotesRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
-        
         services.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<ApplicationDbContext>());
+
+        services.AddScoped<ITelegramBotService, TelegramBotService>();
+        services.AddScoped<IBotUpdateTypeRouter, BotUpdateTypeRouter>();
         
         return services;
     }

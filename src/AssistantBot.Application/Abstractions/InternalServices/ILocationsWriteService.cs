@@ -4,5 +4,5 @@ namespace AssistantBot.Application.Abstractions.InternalServices;
 
 public interface ILocationsWriteService
 {
-    Task AddLocationAsync(LocationDto dto);
+    Task UpsertLocationAsync(UpsertLocationDto dto);
 }
