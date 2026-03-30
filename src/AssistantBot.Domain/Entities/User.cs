@@ -20,4 +20,12 @@ public class User
             Username = username ?? "User"
         };
     }
+
+    public void UpdateUsername(string? newUsername)
+    {
+        if (newUsername != null && newUsername != Username)
+        {
+            Username = newUsername;
+        }
+    }
 }

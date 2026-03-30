@@ -26,9 +26,9 @@ public class LocationsWriteService : ILocationsWriteService
         _usersRepository = usersRepository;
     }
     
-    public async Task UpsertLocationAsync(UpsertLocationDto dto)
+    public async Task UpsertLocationAsync(UpsertLocationDto upsertLocationDto)
     {
-        var user = await _usersRepository.GetByChatIdAsync(dto.ChatId);
+        var user = await _usersRepository.GetByChatIdAsync(upsertLocationDto.ChatId);
 
         if (user is null)
         {
@@ -39,13 +39,13 @@ public class LocationsWriteService : ILocationsWriteService
         {
             if (user.Location is null)
             {
-                var locationEntity = Location.Create(dto.Longitude, dto.Latitude, user.Id);
+                var locationEntity = Location.Create(upsertLocationDto.Longitude, upsertLocationDto.Latitude, user.Id);
 
                 await _locationsRepository.AddAsync(locationEntity);
             }
             else
             {
-                user.Location.UpdateCoords(dto.Longitude, dto.Latitude);
+                user.Location.UpdateCoords(upsertLocationDto.Longitude, upsertLocationDto.Latitude);
             }
         }
         catch (LocationException e)
