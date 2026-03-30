@@ -21,13 +21,6 @@ public class UsersRepository : IUsersRepository
         
         return Task.CompletedTask;
     }
-
-    public Task UpdateAsync(User user)
-    {
-        _dbContext.Users.Update(user);
-        
-        return Task.CompletedTask;
-    } 
         
     public async Task<User?> GetByIdAsync(int id)
     {   

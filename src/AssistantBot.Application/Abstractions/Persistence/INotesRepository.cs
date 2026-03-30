@@ -9,8 +9,6 @@ public interface INotesRepository
     Task<Note?> GetByIdAsync(int id);
 
     Task AddAsync(Note note);
-
-    Task UpdateAsync(Note note);
     
-    Task DeleteByIdAsync(int id);
+    Task<bool> DeleteByIdAsync(int id);
 }

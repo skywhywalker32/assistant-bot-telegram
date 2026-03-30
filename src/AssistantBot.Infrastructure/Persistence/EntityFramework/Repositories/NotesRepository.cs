@@ -35,20 +35,18 @@ public class NotesRepository : INotesRepository
         return Task.CompletedTask;
     }
 
-    public Task UpdateAsync(Note note)
+    public async Task<bool> DeleteByIdAsync(int id)
     {
-        _dbContext.Notes.Update(note);
-
-        return Task.CompletedTask;
-    }
-
-    public async Task DeleteByIdAsync(int id)
-    {
+        bool result = false;
+        
         var note = await _dbContext.Notes.FindAsync(id);
 
         if (note != null)
         {
             _dbContext.Notes.Remove(note);
+            result = true;
         }
+
+        return result;
     }
 }

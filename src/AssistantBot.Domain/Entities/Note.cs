@@ -19,6 +19,18 @@ public class Note
 
     public static Note Create(string title, string text, int userId)
     {
+        EnsureValidNote(title, text);
+        
+        return new Note
+        {
+            Title = title,
+            Text = text,
+            UserId = userId
+        };
+    }
+    
+    private static void EnsureValidNote(string title, string text)
+    {
         if (!EnsureValidTitle(title))
         {
             throw NoteException.InvalidTitleLength(TitleCharsMax, title.Length);
@@ -28,13 +40,6 @@ public class Note
         {
             throw NoteException.InvalidTextLength(TextCharsMax, text.Length);
         }
-        
-        return new Note
-        {
-            Title = title,
-            Text = text,
-            UserId = userId
-        };
     }
 
     private static bool EnsureValidTitle(string title) => 
@@ -42,5 +47,13 @@ public class Note
 
     private static bool EnsureValidText(string text) =>
         text.Length <= TextCharsMax && !string.IsNullOrWhiteSpace(text);
+
+    public void UpdateNote(string title, string text)
+    {
+        EnsureValidNote(title, text);
+
+        Title = title;
+        Text = text;
+    }
 
 }

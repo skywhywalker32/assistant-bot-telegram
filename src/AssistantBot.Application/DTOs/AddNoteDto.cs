@@ -1,6 +1,6 @@
 ﻿namespace AssistantBot.Application.DTOs;
 
-public class NoteDto
+public class AddNoteDto
 {
     public string Title { get; init; } = string.Empty;
     public string Text { get; init; } = string.Empty;

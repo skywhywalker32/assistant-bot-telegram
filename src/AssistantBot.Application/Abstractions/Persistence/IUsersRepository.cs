@@ -6,8 +6,6 @@ public interface IUsersRepository
 {
     Task AddAsync(User user);
     
-    Task UpdateAsync(User user);
-    
     Task<User?> GetByIdAsync(int id);
     
     Task<User?> GetByChatIdAsync(long chatId);

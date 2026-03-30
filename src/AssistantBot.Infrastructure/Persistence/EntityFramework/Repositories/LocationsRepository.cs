@@ -19,11 +19,4 @@ public class LocationsRepository : ILocationsRepository
 
         return Task.CompletedTask;
     }
-    
-    public Task UpdateAsync(Location location)
-    {
-        _dbContext.Locations.Update(location);
-        
-        return Task.CompletedTask;
-    }
 }

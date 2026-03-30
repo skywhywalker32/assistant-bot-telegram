@@ -39,9 +39,9 @@ public class LocationsWriteService : ILocationsWriteService
         {
             if (user.Location is null)
             {
-                var locationEntity = Location.Create(upsertLocationDto.Longitude, upsertLocationDto.Latitude, user.Id);
+                var newLocationEntity = Location.Create(upsertLocationDto.Longitude, upsertLocationDto.Latitude, user.Id);
 
-                await _locationsRepository.AddAsync(locationEntity);
+                await _locationsRepository.AddAsync(newLocationEntity);
             }
             else
             {
@@ -50,12 +50,12 @@ public class LocationsWriteService : ILocationsWriteService
         }
         catch (LocationException e)
         {
-            _logger.LogError(e, "User with chatId:{ChatId} has send wrong location data", user.ChatId);
+            _logger.LogError(e, "Пользователь с chatId:{chatId} отправил неправильные данные локации", user.ChatId);
             throw;
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "General exeption in UpsertLocationAsync");
+            _logger.LogError(exception, "Общая ошибка в UpsertLocationAsync");
             throw;
         }
         

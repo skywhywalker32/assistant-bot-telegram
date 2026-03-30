@@ -12,7 +12,8 @@ public class UsersWriteService : IUsersWriteService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUsersRepository _usersRepository;
 
-    public UsersWriteService(ILogger<UsersWriteService> logger,
+    public UsersWriteService(
+        ILogger<UsersWriteService> logger,
         IUnitOfWork unitOfWork,
         IUsersRepository usersRepository)
     {
@@ -27,9 +28,11 @@ public class UsersWriteService : IUsersWriteService
         
         if (user is null)
         {
-            var newUser = User.Create(upsertUserDto.ChatId, upsertUserDto.Username);
+            var newUserEntity = User.Create(upsertUserDto.ChatId, upsertUserDto.Username);
+            
             _logger.LogInformation("Новый пользователь с ником {username} зарегестрирован", upsertUserDto.Username);
-            await _usersRepository.AddAsync(newUser);
+            
+            await _usersRepository.AddAsync(newUserEntity);
         }
         else
         {
