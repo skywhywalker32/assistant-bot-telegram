@@ -1,6 +1,8 @@
 ﻿using AssistantBot.Application.Abstractions.ExternalServices;
 using AssistantBot.Application.Abstractions.InternalServices;
 using AssistantBot.Application.DTOs;
+using AssistantBot.Infrastructure.Extensions.Telegram;
+using AssistantBot.Infrastructure.Telegram.MenuStates;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -11,49 +13,43 @@ public class BotUpdateTypeRouter : IBotUpdateTypeRouter
     private readonly ILocationsReadService _locationsReadService;
     private readonly ILocationsWriteService _locationsWriteService;
     private readonly ITelegramBotService _botService;
+    private readonly MenuContext _menuContext;
 
     public BotUpdateTypeRouter(ILocationsReadService locationsReadService,
                                ILocationsWriteService locationsWriteService,
-                               ITelegramBotService botService)
+                               ITelegramBotService botService,
+                               MenuContext menuContext)
     {
         _locationsReadService = locationsReadService;
         _locationsWriteService = locationsWriteService;
         _botService = botService;
+        _menuContext = menuContext;
     }
     
-    public async Task HandleUpdate(object update)
+    public async Task HandleUpdateAsync(object update)
     {
-        var updateToHandle = (Update?)update;
-
-        if (updateToHandle is { } upd) // если не null
+        if (update is Update upd)
         {
-            if (upd.Message is { } msg) // eсли пришёл тип "Сообщение"
+            var chatId = upd.GetChatIdOrDefault();
+            
+            // Нужно получить состояние меню и состояние дейсвия пользователя (главное меню, меню заметок и тд.) из бд
+            
+            var menuContext = new MenuContext();
+            
+            switch (upd.Type)
             {
-                if (msg.Location is { } location) // Локация
+                case UpdateType.Message:
                 {
-                    // 1. Маппинг данных к Dto
-                    var locationDto = new UpsertLocationDto()
-                    {
-                        Latitude = location.Latitude.ToString("D2"),
-                        Longitude = location.Longitude.ToString("D2"),
-                        ChatId = msg.Chat.Id
-                    };
-                    
-                    // 2. Вызов соответствующего метода у сервиса из application
-                    await _locationsWriteService.UpsertLocationAsync(locationDto);
+                    menuContext.ProcessMessage();
+                    break;
+                }
 
-                    // 3. Вызов метода из сервиса бота для отображения ответа
+                case UpdateType.CallbackQuery:
+                {
+                    menuContext.ProcessCallback();
+                    break;
                 }
             }
-
-            if (updateToHandle.CallbackQuery is { }) // eсли пришёл тип "запрос обратного вызова"
-            {
-                
-            }
         }
-        
-        
-        
-        throw new NotImplementedException();
     }
 }

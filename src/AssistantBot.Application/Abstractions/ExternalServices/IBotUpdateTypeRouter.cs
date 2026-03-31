@@ -2,5 +2,5 @@
 
 public interface IBotUpdateTypeRouter
 {
-    Task HandleUpdate(object update);
+    Task HandleUpdateAsync(object update);
 }

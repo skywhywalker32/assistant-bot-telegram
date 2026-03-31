@@ -18,7 +18,7 @@ public class BotController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Update update)
     {
-        _botUpdateTypeRouter.HandleUpdate(update);
+        await _botUpdateTypeRouter.HandleUpdateAsync(update);
         
         return Ok();
     }
