@@ -2,6 +2,8 @@
 
 public interface ITelegramBotService
 {
-    Task HandleMessage();
-    Task HandleCallbackQuery();
+    Task SendMainMenuAsync();
+    Task SendNoteMenuAsync();
+    Task SendAiChatAsync();
+    Task SendWeatherMenuAsync();
 }

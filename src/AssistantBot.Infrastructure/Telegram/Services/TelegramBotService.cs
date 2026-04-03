@@ -4,12 +4,22 @@ namespace AssistantBot.Infrastructure.Telegram.Services;
 
 public class TelegramBotService : ITelegramBotService
 {
-    public async Task HandleMessage()
+    public async Task SendMainMenuAsync()
     {
         throw new NotImplementedException();
     }
 
-    public async Task HandleCallbackQuery()
+    public async Task SendNoteMenuAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task SendAiChatAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task SendWeatherMenuAsync()
     {
         throw new NotImplementedException();
     }

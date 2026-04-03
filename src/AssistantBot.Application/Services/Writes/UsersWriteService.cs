@@ -2,6 +2,7 @@
 using AssistantBot.Application.Abstractions.Persistence;
 using AssistantBot.Application.DTOs;
 using AssistantBot.Domain.Entities;
+using AssistantBot.Domain.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace AssistantBot.Application.Services.Writes;
@@ -38,6 +39,13 @@ public class UsersWriteService : IUsersWriteService
         {
             user.UpdateUsername(upsertUserDto.Username);
         }
+
+        await _unitOfWork.CommitChangesAsync();
+    }
+
+    public async Task ChangeMenuStateAsync(User user, MenuState newMenuState)
+    {
+        user.UpdateMenuState(newMenuState);
 
         await _unitOfWork.CommitChangesAsync();
     }
