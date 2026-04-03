@@ -2,8 +2,8 @@
 
 public interface ITelegramBotService
 {
-    Task SendMainMenuAsync();
-    Task SendNoteMenuAsync();
-    Task SendAiChatAsync();
-    Task SendWeatherMenuAsync();
+    Task EditToMainMenuAsync(long chatId);
+    Task EditToNoteMenuAsync(long chatId);
+    Task EditToAiChatAsync(long chatId);
+    Task EditToWeatherMenuAsync(long chatId);
 }
