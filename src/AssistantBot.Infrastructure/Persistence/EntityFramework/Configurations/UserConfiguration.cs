@@ -24,6 +24,14 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Username)
             .HasColumnName("username");
 
+        builder.Property(u => u.ActionState)
+            .HasColumnName("action_state")
+            .HasConversion<string>();
+
+        builder.Property(u => u.MenuState)
+            .HasColumnName("menu_state")
+            .HasConversion<string>();
+        
         builder.Property(u => u.CreatedAt)
             .HasColumnName("created_at");
     }

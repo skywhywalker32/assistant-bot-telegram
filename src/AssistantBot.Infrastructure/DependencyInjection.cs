@@ -3,6 +3,7 @@ using AssistantBot.Application.Abstractions.Persistence;
 using AssistantBot.Infrastructure.Persistence.EntityFramework.Contexts;
 using AssistantBot.Infrastructure.Persistence.EntityFramework.Repositories;
 using AssistantBot.Infrastructure.Telegram;
+using AssistantBot.Infrastructure.Telegram.Handlers;
 using AssistantBot.Infrastructure.Telegram.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,12 @@ public static class DependencyInjection
 
         services.AddScoped<ITelegramBotService, TelegramBotService>();
         services.AddScoped<IBotUpdateTypeRouter, BotUpdateTypeRouter>();
+
+        services.AddScoped<IMenuHandler, MainMenuHandler>();
+        services.AddScoped<IMenuHandler, NoteMenuHandler>();
+        services.AddScoped<IMenuHandler, WeatherMenuHandler>();
+        services.AddScoped<IMenuHandler, AiChatHandler>();
+        services.AddScoped<MenuContext>();
         
         return services;
     }

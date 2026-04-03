@@ -1,8 +1,9 @@
 ﻿using AssistantBot.Application.Abstractions.ExternalServices;
 using AssistantBot.Application.Abstractions.InternalServices;
 using AssistantBot.Application.DTOs;
+using AssistantBot.Domain.Enums;
 using AssistantBot.Infrastructure.Extensions.Telegram;
-using AssistantBot.Infrastructure.Telegram.MenuStates;
+using AssistantBot.Infrastructure.Telegram.Handlers;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -12,16 +13,19 @@ public class BotUpdateTypeRouter : IBotUpdateTypeRouter
 {
     private readonly ILocationsReadService _locationsReadService;
     private readonly ILocationsWriteService _locationsWriteService;
+    private readonly IUsersReadService _usersReadService;
     private readonly ITelegramBotService _botService;
     private readonly MenuContext _menuContext;
 
     public BotUpdateTypeRouter(ILocationsReadService locationsReadService,
                                ILocationsWriteService locationsWriteService,
+                               IUsersReadService usersReadService,
                                ITelegramBotService botService,
                                MenuContext menuContext)
     {
         _locationsReadService = locationsReadService;
         _locationsWriteService = locationsWriteService;
+        _usersReadService = usersReadService;
         _botService = botService;
         _menuContext = menuContext;
     }
@@ -30,25 +34,18 @@ public class BotUpdateTypeRouter : IBotUpdateTypeRouter
     {
         if (update is Update upd)
         {
-            var chatId = upd.GetChatIdOrDefault();
-            
-            // Нужно получить состояние меню и состояние дейсвия пользователя (главное меню, меню заметок и тд.) из бд
-            
-            var menuContext = new MenuContext();
-            
-            switch (upd.Type)
-            {
-                case UpdateType.Message:
-                {
-                    menuContext.ProcessMessage();
-                    break;
-                }
+            var chatIdOrNull = upd.GetChatIdOrDefault();
 
-                case UpdateType.CallbackQuery:
+            if (chatIdOrNull is { } chatId)
+            {
+                var user = await _usersReadService.GetByChatIdAsync(chatId);
+
+                if (user is null)
                 {
-                    menuContext.ProcessCallback();
-                    break;
+                    throw new Exception("Unknown user");
                 }
+                
+                await _menuContext.InvokeAsync(upd, user);
             }
         }
     }
