@@ -2,8 +2,9 @@
 
 public interface ITelegramBotService
 {
-    Task EditToMainMenuAsync(long chatId);
-    Task EditToNoteMenuAsync(long chatId);
-    Task EditToAiChatAsync(long chatId);
-    Task EditToWeatherMenuAsync(long chatId);
+    Task SendWelcomeMessageAsync(long chatId);
+    Task EditToMainMenuAsync(long chatId, int msgId);
+    Task EditToNoteMenuAsync(long chatId, int msgId);
+    Task EditToAiChatAsync(long chatId, int msgId);
+    Task EditToWeatherMenuAsync(long chatId, int msgId);
 }

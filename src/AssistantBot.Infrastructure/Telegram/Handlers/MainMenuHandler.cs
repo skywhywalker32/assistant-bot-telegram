@@ -1,4 +1,5 @@
-﻿using AssistantBot.Application.Abstractions.InternalServices;
+﻿using AssistantBot.Application.Abstractions.ExternalServices;
+using AssistantBot.Application.Abstractions.InternalServices;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using User = AssistantBot.Domain.Entities.User;
@@ -10,10 +11,12 @@ namespace AssistantBot.Infrastructure.Telegram.Handlers;
 public class MainMenuHandler : IMenuHandler
 {
     private readonly IUsersWriteService _usersWriteService;
+    private readonly ITelegramBotService _botService;
 
-    public MainMenuHandler(IUsersWriteService usersWriteService)
+    public MainMenuHandler(IUsersWriteService usersWriteService, ITelegramBotService botService)
     {
         _usersWriteService = usersWriteService;
+        _botService = botService;
     }
     
     public MenuState State { get; } = MenuState.MainMenu;
@@ -66,6 +69,31 @@ public class MainMenuHandler : IMenuHandler
 
     private async Task HandleCallbackAsync(CallbackQuery query, User user)
     {
-        
+        if (user.ActionState == ActionState.None)
+        {
+            switch (query.Data)
+            {
+                case BotCallbacks.MainMenu.NoteMenuCallback:
+                {
+                    await _usersWriteService.ChangeMenuStateAsync(user, MenuState.NoteMenu);
+                    await _botService.EditToNoteMenuAsync(user.ChatId, 2);
+                    break;
+                }
+
+                case BotCallbacks.MainMenu.WeatherMenuCallback:
+                {
+                    await _usersWriteService.ChangeMenuStateAsync(user, MenuState.WeatherMenu);
+                    await _botService.EditToWeatherMenuAsync(user.ChatId, 2);
+                    break;
+                }
+                
+                case BotCallbacks.MainMenu.AIChatCallback:
+                {
+                    await _usersWriteService.ChangeMenuStateAsync(user, MenuState.AiChat);
+                    await _botService.EditToAiChatAsync(user.ChatId, 2);
+                    break;
+                }
+            }
+        }
     }
 }
