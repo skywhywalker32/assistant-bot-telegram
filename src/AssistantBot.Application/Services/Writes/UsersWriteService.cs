@@ -23,8 +23,10 @@ public class UsersWriteService : IUsersWriteService
         _usersRepository = usersRepository;
     }
     
-    public async Task UpsertUserAsync(UpsertUserDto upsertUserDto)
+    public async Task<User> UpsertUserAsync(UpsertUserDto upsertUserDto)
     {
+        User result;
+        
         var user = await _usersRepository.GetByChatIdAsync(upsertUserDto.ChatId);
         
         if (user is null)
@@ -34,13 +36,17 @@ public class UsersWriteService : IUsersWriteService
             _logger.LogInformation("Новый пользователь с ником {username} зарегестрирован", upsertUserDto.Username);
             
             _usersRepository.Add(newUserEntity);
+
+            result = newUserEntity;
         }
         else
         {
-            user.UpdateUsername(upsertUserDto.Username);
+            result = user.UpdateUsername(upsertUserDto.Username);
         }
 
         await _unitOfWork.CommitChangesAsync();
+
+        return result;
     }
 
     public async Task ChangeMenuStateAsync(User user, MenuState newMenuState)

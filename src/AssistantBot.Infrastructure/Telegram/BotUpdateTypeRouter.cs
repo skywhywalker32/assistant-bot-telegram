@@ -14,18 +14,21 @@ public class BotUpdateTypeRouter : IBotUpdateTypeRouter
     private readonly ILocationsReadService _locationsReadService;
     private readonly ILocationsWriteService _locationsWriteService;
     private readonly IUsersReadService _usersReadService;
+    private readonly IUsersWriteService _usersWriteService;
     private readonly ITelegramBotService _botService;
     private readonly MenuContext _menuContext;
 
     public BotUpdateTypeRouter(ILocationsReadService locationsReadService,
                                ILocationsWriteService locationsWriteService,
                                IUsersReadService usersReadService,
+                               IUsersWriteService usersWriteService,
                                ITelegramBotService botService,
                                MenuContext menuContext)
     {
         _locationsReadService = locationsReadService;
         _locationsWriteService = locationsWriteService;
         _usersReadService = usersReadService;
+        _usersWriteService = usersWriteService;
         _botService = botService;
         _menuContext = menuContext;
     }
@@ -39,6 +42,17 @@ public class BotUpdateTypeRouter : IBotUpdateTypeRouter
             if (chatIdOrNull is { } chatId)
             {
                 var user = await _usersReadService.GetByChatIdAsync(chatId);
+
+                if (user is null)
+                {
+                    var userDto = new UpsertUserDto()
+                    {
+                        ChatId = chatId,
+                        Username = upd.GetUsernameOrDefault()
+                    };
+                    
+                    user = await _usersWriteService.UpsertUserAsync(userDto);
+                }
 
                 if (user is null)
                 {

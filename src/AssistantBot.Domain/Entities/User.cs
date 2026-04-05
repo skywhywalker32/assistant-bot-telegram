@@ -26,12 +26,14 @@ public class User
         };
     }
 
-    public void UpdateUsername(string? newUsername)
+    public User UpdateUsername(string? newUsername)
     {
         if (newUsername != null && newUsername != Username)
         {
             Username = newUsername;
         }
+
+        return this;
     }
 
     public void UpdateMenuState(MenuState newMenuState) =>

@@ -6,6 +6,6 @@ namespace AssistantBot.Application.Abstractions.InternalServices;
 
 public interface IUsersWriteService
 {
-    Task UpsertUserAsync(UpsertUserDto dto);
+    Task<User> UpsertUserAsync(UpsertUserDto dto);
     Task ChangeMenuStateAsync(User user, MenuState newMenuState);
 }
