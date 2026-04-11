@@ -48,21 +48,12 @@ public class MainMenuHandler : IMenuHandler
     {
         if (user.ActionState == ActionState.None)
         {
-            if (message.Text == BotButtons.MainMenu.Note)
+            if (message.Text == BotCommands.Start)
             {
-                // 1. изменить состояние MenuState юзера на NoteMenu через usersWriteService
-                await _usersWriteService.ChangeMenuStateAsync(user, MenuState.NoteMenu);
+                var msgId = await _botService.SendWelcomeMessageAsync(user.ChatId);
 
-                // 2. отрисовать NoteMenu через services/TelegramBotService юзеру
-            }
-            else if (message.Text == BotButtons.MainMenu.Weather)
-            {
-                  
-            }
-
-            if (message.Text == BotButtons.MainMenu.AIChat)
-            {
-                
+                await _usersWriteService.ChangeMessageIdAsync(user, msgId);
+                await _usersWriteService.ChangeMenuStateAsync(user, MenuState.MainMenu);
             }
         }
     }
@@ -75,22 +66,31 @@ public class MainMenuHandler : IMenuHandler
             {
                 case BotCallbacks.MainMenu.NoteMenuCallback:
                 {
+                    var msgId = await _botService.EditOrSendToNoteMenuAsync(user.ChatId, user.MessageId);
+                    
+                    await _usersWriteService.ChangeMessageIdAsync(user, msgId);
                     await _usersWriteService.ChangeMenuStateAsync(user, MenuState.NoteMenu);
-                    await _botService.EditToNoteMenuAsync(user.ChatId, 2);
+                    
                     break;
                 }
 
                 case BotCallbacks.MainMenu.WeatherMenuCallback:
                 {
+                    var msgId = await _botService.EditOrSendToWeatherMenuAsync(user.ChatId, user.MessageId);
+                    
+                    await _usersWriteService.ChangeMessageIdAsync(user, msgId);
                     await _usersWriteService.ChangeMenuStateAsync(user, MenuState.WeatherMenu);
-                    await _botService.EditToWeatherMenuAsync(user.ChatId, 2);
+                    
                     break;
                 }
                 
                 case BotCallbacks.MainMenu.AIChatCallback:
                 {
+                    var msgId = await _botService.EditOrSendToAiChatAsync(user.ChatId, user.MessageId);
+
+                    await _usersWriteService.ChangeMessageIdAsync(user, msgId);
                     await _usersWriteService.ChangeMenuStateAsync(user, MenuState.AiChat);
-                    await _botService.EditToAiChatAsync(user.ChatId, 2);
+                    
                     break;
                 }
             }

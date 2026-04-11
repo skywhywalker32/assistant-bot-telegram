@@ -61,9 +61,11 @@ public class NoteMenuHandler : IMenuHandler
             {
                 case BotCallbacks.NoteMenu.Back:
                 {
+                    var msgId = await _botService.EditOrSendToMainMenuAsync(user.ChatId, user.MessageId);
+
+                    await _usersWriteService.ChangeMessageIdAsync(user, msgId);
                     await _usersWriteService.ChangeMenuStateAsync(user, MenuState.MainMenu);
 
-                    await _botService.EditToMainMenuAsync(user.ChatId, 2);
                     break;
                 }
             }

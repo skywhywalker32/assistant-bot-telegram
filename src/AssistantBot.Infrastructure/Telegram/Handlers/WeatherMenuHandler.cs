@@ -58,9 +58,11 @@ public class WeatherMenuHandler : IMenuHandler
             {
                 case BotCallbacks.WeatherMenu.Back:
                 {
+                    var msgId = await _botService.EditOrSendToMainMenuAsync(user.ChatId, 1);
+
+                    await _usersWriteService.ChangeMessageIdAsync(user, msgId);
                     await _usersWriteService.ChangeMenuStateAsync(user, MenuState.MainMenu);
 
-                    await _botService.EditToMainMenuAsync(user.ChatId, 2);
                     break;
                 }
             }

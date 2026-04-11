@@ -8,4 +8,5 @@ public interface IUsersWriteService
 {
     Task<User> UpsertUserAsync(UpsertUserDto dto);
     Task ChangeMenuStateAsync(User user, MenuState newMenuState);
+    Task ChangeMessageIdAsync(User user, int msgId);
 }

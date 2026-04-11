@@ -31,6 +31,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.MenuState)
             .HasColumnName("menu_state")
             .HasConversion<string>();
+
+        builder.Property(u => u.MessageId)
+            .HasColumnName("message_id");
         
         builder.Property(u => u.CreatedAt)
             .HasColumnName("created_at");

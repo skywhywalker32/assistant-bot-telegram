@@ -1,4 +1,5 @@
 ﻿using AssistantBot.Domain.Enums;
+using AssistantBot.Domain.Exceptions;
 
 namespace AssistantBot.Domain.Entities;
 
@@ -10,6 +11,8 @@ public class User
 
     public ActionState ActionState { get; private set; } = ActionState.None;
     public MenuState MenuState { get; private set; } = MenuState.MainMenu;
+
+    public int MessageId { get; private set; } = -1;
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 
     public List<Note> Notes { get; private set; } = new();
@@ -41,4 +44,17 @@ public class User
     
     public void UpdateActionState(ActionState newActionState) => 
         ActionState = newActionState;
+
+    public void UpdateMessageId(int msgId)
+    {
+        if (msgId <= 0)
+        {
+            throw UserException.NegativeOrZeroMessageId(msgId);
+        }
+
+        if (MessageId != msgId)
+        {
+            MessageId = msgId;
+        }
+    }
 }

@@ -55,4 +55,11 @@ public class UsersWriteService : IUsersWriteService
 
         await _unitOfWork.CommitChangesAsync();
     }
+
+    public async Task ChangeMessageIdAsync(User user, int msgId)
+    {
+        user.UpdateMessageId(msgId);
+
+        await _unitOfWork.CommitChangesAsync();
+    }
 }

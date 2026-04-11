@@ -58,9 +58,11 @@ public class AiChatHandler : IMenuHandler
             {
                 case BotCallbacks.AiChat.Back:
                 {
-                    await _usersWriteService.ChangeMenuStateAsync(user, MenuState.MainMenu);
+                    var msgId = await _botService.EditOrSendToMainMenuAsync(user.ChatId, user.MessageId);
 
-                    await _botService.EditToMainMenuAsync(user.ChatId, 2);
+                    await _usersWriteService.ChangeMessageIdAsync(user, msgId);
+                    await _usersWriteService.ChangeMenuStateAsync(user, MenuState.MainMenu);
+                    
                     break;
                 }
             }
